@@ -28,4 +28,15 @@ jobs:
             await core.summary
               .addHeading('Test Results', 2) // h2 标题
               .addTable([
-                [{data: 'File', header: true}, {data: 'Result',
+                [{data: 'File', header: true}, {data: 'Result', header: true}, {data: 'Details', header: true}],
+                ['tests/foo.js', 'Pass ✅', 'All assertions passed.'],
+                ['tests/bar.js', 'Fail ❌', 'Assertion `expect(true).toBe(false)` failed.'],
+                ['tests/utils.js', 'Pass ✅', 'Helper functions working as expected.']
+              ])
+              .addSeparator()
+              .addLink('View Staging Deployment', 'https://example.com/staging') // 替换为你的链接
+              .addQuote('This summary was generated automatically.')
+              .write()
+
+      - name: Add another simple message after script
+        run: echo "Summary generation complete! :tada:" >> $GITHUB_STEP_SUMMARY
