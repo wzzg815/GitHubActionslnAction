@@ -1,0 +1,19 @@
+on: push
+jobs:
+  generate-a-secret-output:
+    runs-on: ubuntu-latest
+    steps:
+    - id: sets-a-secret
+      name: Generate, mask, and output a secret
+      run: |
+        the_secret=$((RANDOM))
+        echo "::add-mask::$the_secret"
+        echo "secret-number=$the_secret" >> "$GITHUB_OUTPUT"
+    - name: Use that secret output (protected by a mask)
+      run: |
+        echo "the secret number is ${{ steps.sets-a-secret.outputs.secret-number }}"
+    - name: Set color
+      id: color-generator
+      run: echo "SELECTED_COLOR=green" >> "$GITHUB_OUTPUT"
+    - name: Get color
+      run: echo "${{ steps.color-generator.outputs.SELECTED_COLOR }}"   
