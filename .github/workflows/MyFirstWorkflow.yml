@@ -10,9 +10,9 @@ jobs:
   MyFirstJob:
     runs-on: ubuntu-latest
     steps:
-      - run: echo "👋 Hello World!"   
+      - run: echo " Hello World!"   
       - name: Checkout
         uses: actions/checkout@v4.2.2
       - run: |
-          echo "The repository ${{ github.repository }} contains the following
+          echo "The repository ${{ github.repository }} contains the following files:"
           tree
