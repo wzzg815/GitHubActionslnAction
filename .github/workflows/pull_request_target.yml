@@ -1,0 +1,18 @@
+# .github/workflows/your-workflow-name.yml
+on: pull_request_target
+permissions:
+  contents: read
+  pull-requests: write
+jobs:
+  triage:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/labeler@v4
+        # The labeler action typically requires a PAT to operate on pull_request_target
+        # if the PR is from a fork and needs to modify the PR (e.g., add labels).
+        # However, with pull-requests: write permission, it might work directly.
+        # If not, you might need to pass a token with appropriate permissions.
+        # with:
+        #   repo-token: "${{ secrets.GITHUB_TOKEN }}" # Default, usually sufficient
+        #   # or for more complex scenarios or if default token lacks permissions on pull_request_target:
+        #   # repo-token: "${{ secrets.PAT_FOR_LABELING }}"
