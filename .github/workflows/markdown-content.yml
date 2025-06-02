@@ -1,0 +1,31 @@
+name: Job Summary Demo
+
+on:
+  push: # 当推送到分支时触发
+    branches:
+      - main # 你可以根据需要修改分支名
+  workflow_dispatch: # 允许手动触发
+
+jobs:
+  build_and_summarize:
+    runs-on: ubuntu-latest # 使用 GitHub 托管的最新 Ubuntu runner
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4 # 检出你的代码库，虽然在这个简单示例中不是必需的，但通常是第一步
+
+      - name: Add simple text to summary using echo
+        run: |
+          echo '### Hello world! :rocket:' >> $GITHUB_STEP_SUMMARY
+          echo '### Love this feature! :medal_sports:' >> $GITHUB_STEP_SUMMARY
+          echo '<h1>Great feature!</h1>' >> $GITHUB_STEP_SUMMARY
+          echo "This line was added on $(date)" >> $GITHUB_STEP_SUMMARY
+
+      - name: Write richer summary using actions/github-script
+        uses: actions/github-script@v7 # 建议使用最新的主版本 v7
+        with:
+          script: |
+            await core.summary
+              .addHeading('Test Results', 2) // h2 标题
+              .addTable([
+                [{data: 'File', header: true}, {data: 'Result',
