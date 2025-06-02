@@ -34,7 +34,8 @@ jobs:
                 ['tests/utils.js', 'Pass ✅', 'Helper functions working as expected.']
               ])
               .addSeparator()
-              .addLink('View Staging Deployment', 'https://example.com/staging') // 替换为你的链接
+               // 使用 GITHUB_SHA 链接到特定版本的 README
+              .addLink('查看项目 README (此构建版本)', `${process.env.GITHUB_SERVER_URL}/${process.env.GITHUB_REPOSITORY}/blob/${process.env.GITHUB_SHA}/README.md`)
               .addQuote('This summary was generated automatically.')
               .write()
 
